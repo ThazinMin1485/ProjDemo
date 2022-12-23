@@ -16,17 +16,36 @@
   http://www.springframework.org/schema/mvc/spring-mvc.xsd
   ">
 
+	<context:annotation-config></context:annotation-config>
 	<context:component-scan
 		base-package="com.cgm.crud"></context:component-scan>
 	<mvc:annotation-driven></mvc:annotation-driven>
 
-	<mvc:resources location="/WEB-INF/resources"
+	<mvc:resources location="/resources/"
 		mapping="/resources/**"></mvc:resources>
 	<mvc:annotation-driven></mvc:annotation-driven>
 
 	<!-- View Resolver -->
+	<bean id="viewResolver"
+        class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="order" value="0" />
+        <property name="viewClass"
+            value="org.springframework.web.servlet.view.tiles3.TilesView" />
+    </bean>
+
+
+    <bean id="tilesConfigurer"
+        class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/layouts/app.xml</value>
+                <value>/WEB-INF/layouts/views.xml</value>
+            </list>
+        </property>
+    </bean>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="1" />
 		<property name="prefix" value="/WEB-INF/pages/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
