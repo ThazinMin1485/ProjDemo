@@ -1,10 +1,10 @@
-package com.cgm.crud.service;
+package com.cgm.crud.bl.service;
 
 import java.util.List;
 
-import com.cgm.crud.dto.EmployeeDto;
-import com.cgm.crud.entity.Employee;
-import com.cgm.crud.form.CreateEmpForm;
+import com.cgm.crud.bl.dto.EmployeeDto;
+import com.cgm.crud.persistence.entity.Employee;
+import com.cgm.crud.web.form.CreateEmpForm;
 
 public interface EmployeeServices {
 

@@ -1,11 +1,10 @@
-package com.cgm.crud.form;
+package com.cgm.crud.web.form;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-
-import com.cgm.crud.entity.Employee;
+import com.cgm.crud.persistence.entity.Employee;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

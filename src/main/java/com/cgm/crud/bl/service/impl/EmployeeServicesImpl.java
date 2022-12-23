@@ -1,4 +1,4 @@
-package com.cgm.crud.service.impl;
+package com.cgm.crud.bl.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cgm.crud.dao.EmployeeDao;
-import com.cgm.crud.dto.EmployeeDto;
-import com.cgm.crud.entity.Employee;
-import com.cgm.crud.form.CreateEmpForm;
-import com.cgm.crud.service.EmployeeServices;
+import com.cgm.crud.bl.dto.EmployeeDto;
+import com.cgm.crud.bl.service.EmployeeServices;
+import com.cgm.crud.persistence.dao.EmployeeDao;
+import com.cgm.crud.persistence.entity.Employee;
+import com.cgm.crud.web.form.CreateEmpForm;
 
 @Transactional
 @Service

@@ -1,4 +1,4 @@
-package com.cgm.crud.controller;
+package com.cgm.crud.web.controller;
 
 import java.util.List;
 
@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cgm.crud.dto.EmployeeDto;
-import com.cgm.crud.entity.Employee;
-import com.cgm.crud.form.CreateEmpForm;
-import com.cgm.crud.service.EmployeeServices;
+import com.cgm.crud.bl.dto.EmployeeDto;
+import com.cgm.crud.bl.service.EmployeeServices;
+import com.cgm.crud.persistence.entity.Employee;
+import com.cgm.crud.web.form.CreateEmpForm;
 
 @Controller
 public class EmployeeController {

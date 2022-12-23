@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.cgm.crud.dao.EmployeeDao;
-import com.cgm.crud.entity.Employee;
+import com.cgm.crud.persistence.dao.EmployeeDao;
+import com.cgm.crud.persistence.entity.Employee;
 @Repository
 @Transactional
 public class EmployeeDaoImpl implements EmployeeDao {

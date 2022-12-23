@@ -1,8 +1,8 @@
-package com.cgm.crud.dao;
+package com.cgm.crud.persistence.dao;
 
 import java.util.List;
 
-import com.cgm.crud.entity.Employee;
+import com.cgm.crud.persistence.entity.Employee;
 
 public interface EmployeeDao {
 	// add Employee

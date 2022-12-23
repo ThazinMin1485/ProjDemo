@@ -1,6 +1,6 @@
-package com.cgm.crud.dto;
+package com.cgm.crud.bl.dto;
 
-import com.cgm.crud.entity.Employee;
+import com.cgm.crud.persistence.entity.Employee;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
