@@ -1,6 +1,5 @@
 package com.cgm.crud.web.form;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -13,13 +12,13 @@ import lombok.Data;
 @AllArgsConstructor
 public class CreateEmpForm {
 	@NotNull
-	@NotEmpty(message="Name cannot be empty")
+	@NotEmpty(message="Name cannot be empty!")
 	private String name;
 	
-	@NotEmpty(message="Department cannot be empty")
+	@NotEmpty(message="Department cannot be empty!")
 	private String department;
 	
-	@NotEmpty(message="Email cannot be empty")
+	@NotEmpty(message="Email cannot be empty!")
 	private String email;
 	
 	private int salary;

@@ -21,14 +21,10 @@
 	<div>
 		<tiles:insertAttribute name="header" />
 	</div>
-	<div style="float: left; padding: 10px; width: 15%;">
-		<tiles:insertAttribute name="menu" />
-	</div>
-	<div
-		style="float: left; padding: 10px; width: 80%; border-left: 1px solid #adadad;">
+	<div class="container">
 		<tiles:insertAttribute name="body" />
 	</div>
-	<div style="clear: both">
+	<div>
 		<tiles:insertAttribute name="footer" />
 	</div>
 </body>

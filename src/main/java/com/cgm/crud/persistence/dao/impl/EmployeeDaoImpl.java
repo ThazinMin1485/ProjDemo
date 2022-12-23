@@ -1,4 +1,4 @@
-package com.cgm.crud.dao.impl;
+package com.cgm.crud.persistence.dao.impl;
 
 import java.util.List;
 
