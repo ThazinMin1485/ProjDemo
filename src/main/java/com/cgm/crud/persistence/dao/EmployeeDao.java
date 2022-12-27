@@ -19,4 +19,7 @@ public interface EmployeeDao {
 	
 	//delete employee
 	public void deleteEmp(int id);
+	
+	//get employee by email
+	public Employee findByEmail(String email);
 }

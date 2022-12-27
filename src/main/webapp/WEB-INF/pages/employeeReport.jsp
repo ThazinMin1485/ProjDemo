@@ -17,6 +17,8 @@
 			<th>Department</th>
 			<th>Email</th>
 			<th>Salary</th>
+			<th>Password</th>
+			<th>Type</th>
 			<th>Edit</th>
 			<th>Delete</th>
 		</tr>
@@ -27,6 +29,8 @@
 				<td>${emp.department}</td>
 				<td>${emp.email}</td>
 				<td>${emp.salary}</td>
+				<td>${emp.password }</td>
+				<td>${emp.type }</td>
 				<td><a href="editEmployee/${emp.id}">Edit</a></td>
 				<td><a href="deleteEmployee/${emp.id}">Delete</a></td>
 			</tr>

@@ -13,8 +13,19 @@ public class EmployeeDto {
 	private String email;
 	private String department;
 	private int salary;
+	private String password;
+	private String type;
 
 	public EmployeeDto(Employee emp) {
-		super();
+		if(emp==null) {
+			emp=new Employee();
+		}
+		this.id=emp.getId();
+		this.name=emp.getName();
+		this.email=emp.getEmail();
+		this.department=emp.getDepartment();
+		this.salary=emp.getSalary();
+		this.password=emp.getPassword();
+		this.type=emp.getType();
 	}
 }

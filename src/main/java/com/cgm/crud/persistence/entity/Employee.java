@@ -19,5 +19,6 @@ public class Employee {
 	private String email;
 	private String department;
 	private int salary;
-
+	private String password;
+	private String type;
 }

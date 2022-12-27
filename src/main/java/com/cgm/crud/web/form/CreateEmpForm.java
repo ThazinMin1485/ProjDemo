@@ -1,5 +1,7 @@
 package com.cgm.crud.web.form;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -21,7 +23,13 @@ public class CreateEmpForm {
 	@NotEmpty(message="Email cannot be empty!")
 	private String email;
 	
+	@Min(value=150000)
 	private int salary;
+	
+	@NotEmpty
+	private String password;
+	
+	private String type;
 	
 	public CreateEmpForm() {
 		super();
@@ -32,6 +40,8 @@ public class CreateEmpForm {
 		this.department=emp.getDepartment();
 		this.email=emp.getEmail();
 		this.salary=emp.getSalary();
+		this.password=emp.getPassword();
+		this.type=emp.getType();
 	}
 	
 }
