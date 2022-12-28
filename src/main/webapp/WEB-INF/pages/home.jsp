@@ -7,16 +7,18 @@
 <%@include file="./base.jsp"%>
 <title>Spring MVC</title>
 <style>
-h3{
-text-align:center;
-color:#30a0ab;
+h3 {
+	text-align: center;
+	color: #30a0ab;
 }
-.btn{
-width:200px;
+
+.btn {
+	width: 200px;
 }
-.container{
-margin-top:100px;
-text-align:center;
+
+.container {
+	margin-top: 100px;
+	text-align: center;
 }
 </style>
 </head>
@@ -29,7 +31,8 @@ text-align:center;
 		</div>
 		<br>
 		<div>
-			<a href="passwordReset" class="btn btn-outline-primary">Password Reset</a>
+			<a href="passwordReset" class="btn btn-outline-primary">Password
+				Reset</a>
 		</div>
 		<br>
 		<div>

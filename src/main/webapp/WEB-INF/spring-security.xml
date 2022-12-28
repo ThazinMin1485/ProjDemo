@@ -15,7 +15,8 @@
 		<form-login login-page="/login"
 			login-processing-url="/login" username-parameter="username"
 			password-parameter="password" default-target-url="/" />
-		<logout logout-url="/logout" logout-success-url="/" />
+		<logout logout-url="/custom_logout_url" logout-success-url="/"
+			delete-cookies="JSESSIONID" />
 		<access-denied-handler error-page="/error" />
 	</http>
 	<authentication-manager>

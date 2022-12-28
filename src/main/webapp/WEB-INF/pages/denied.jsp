@@ -9,15 +9,15 @@
 h3 {
 	font-size: 25px;
 	color: #ff0000;
-	text-align:center;
+	text-align: center;
 }
 
 a {
 	text-decoration: none;
 	font-size: 20px;
 	color: #003080;
-	display:block;
-	text-align:center;
+	display: block;
+	text-align: center;
 }
 </style>
 </head>

@@ -34,5 +34,6 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<a href="<c:url value="/logout" />" class="btn btn-warning">Logout</a>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +28,18 @@ h3 {
 	width: 80px;
 	margin-top: 20px;
 }
+
+.btn-out {
+	display: block;
+	width: 80px;
+	text-align: center;
+	margin: 0 auto;
+	text-decoration: none;
+	border: 1px solid #000;
+	background-color:#802000;
+	color:#fff;
+	padding:10px 20px;
+}
 </style>
 </head>
 <body>
@@ -36,8 +49,9 @@ h3 {
     Enter UserName: <input type="text" name="username" />
 			<br />
 			<br />
-			<input type="submit" value="Login" />
+			<input type="submit" value="Login" class="btn" />
 		</form:form>
 	</div>
+	<a href="logout" class="btn-out">Logout</a>
 </body>
 </html>
