@@ -26,9 +26,24 @@ import com.cgm.crud.bl.service.EmployeeServices;
 import com.cgm.crud.persistence.entity.Employee;
 import com.cgm.crud.web.form.CreateEmpForm;
 
+/**
+ * <h2> EmployeeController Class</h2>
+ * <p>
+ * Process for Displaying EmployeeController
+ * </p>
+ * 
+ * @author User
+ *
+ */
 @Controller
 public class EmployeeController {
 
+	/**
+	 * <h2> service</h2>
+	 * <p>
+	 * service
+	 * </p>
+	 */
 	@Autowired
 	EmployeeServices service;
 	
@@ -41,12 +56,33 @@ public class EmployeeController {
 //		binder.setValidator(validator);
 //	}
 
+	/**
+	 * <h2> showRegister</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param model
+	 * @return
+	 * @return String
+	 */
 	@RequestMapping(value = { "/addEmployee" }, method = RequestMethod.GET)
 	public String showRegister(Model model) {
 		model.addAttribute("employee", new Employee());
 		return "register";
 	}
 
+	/**
+	 * <h2> insertEmployee</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param emp
+	 * @param result
+	 * @return
+	 * @return String
+	 */
 	@RequestMapping(value = { "/insertEmployee" }, method = RequestMethod.POST)
 	public String insertEmployee(@Valid @ModelAttribute("employee") CreateEmpForm emp, BindingResult result) {
 		if (result.hasErrors()) {
@@ -70,6 +106,15 @@ public class EmployeeController {
 //	}
 	
 	// lode employee data
+    /**
+     * <h2> lodeEmployee</h2>
+     * <p>
+     * 
+     * </p>
+     *
+     * @return
+     * @return ModelAndView
+     */
     @GetMapping("employeeReport")
     public ModelAndView lodeEmployee() {
         ModelAndView report = new ModelAndView("employeeReport");
@@ -81,6 +126,17 @@ public class EmployeeController {
     }
     
  // lode edit form
+    /**
+     * <h2> lodeEditForm</h2>
+     * <p>
+     * 
+     * </p>
+     *
+     * @param id
+     * @param m
+     * @return
+     * @return String
+     */
     @GetMapping("/editEmployee/{id}")
     public String lodeEditForm(@PathVariable(value = "id") int id, Model m) {
         Employee emp = service.getById(id);
@@ -92,6 +148,16 @@ public class EmployeeController {
         return "editEmployee";
     }
     
+    /**
+     * <h2> updateEmp</h2>
+     * <p>
+     * 
+     * </p>
+     *
+     * @param emp
+     * @return
+     * @return String
+     */
     @PostMapping("/editEmployee/updateEmployee")
     public String updateEmp(@ModelAttribute("updateEmployee") Employee emp) {
         service.updateEmp(emp);
@@ -99,6 +165,16 @@ public class EmployeeController {
         return "redirect:/employeeReport";
     }
 
+    /**
+     * <h2> deleteEmployee</h2>
+     * <p>
+     * 
+     * </p>
+     *
+     * @param id
+     * @return
+     * @return String
+     */
     @GetMapping("/deleteEmployee/{id}")
     public String deleteEmployee(@PathVariable int id) {
         service.deleteEmployee(id);

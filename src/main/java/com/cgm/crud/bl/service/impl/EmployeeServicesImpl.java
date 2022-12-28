@@ -14,34 +14,74 @@ import com.cgm.crud.persistence.dao.EmployeeDao;
 import com.cgm.crud.persistence.entity.Employee;
 import com.cgm.crud.web.form.CreateEmpForm;
 
+/**
+ * <h2>EmployeeServicesImpl Class</h2>
+ * <p>
+ * Process for Displaying EmployeeServicesImpl
+ * </p>
+ * 
+ * @author User
+ *
+ */
 @Transactional
 @Service
 public class EmployeeServicesImpl implements EmployeeServices {
+	// declare EmployeeDao class
+	/**
+	 * <h2>dao</h2>
+	 * <p>
+	 * dao
+	 * </p>
+	 */
 	@Autowired
-	EmployeeDao dao;
-	
+	private EmployeeDao dao;
+
+	// use encoder to encode password
+	/**
+	 * <h2>passwordEncoder</h2>
+	 * <p>
+	 * passwordEncoder
+	 * </p>
+	 */
 	@Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-	//add employee
+	private BCryptPasswordEncoder passwordEncoder;
+
+	// add employee
+	/**
+	 * <h2>addEmp</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param empform
+	 */
 	@Override
 	public void addEmp(CreateEmpForm empform) {
-		Employee emp=new Employee();
+		Employee emp = new Employee();
 		emp.setName(empform.getName());
 		emp.setDepartment(empform.getDepartment());
 		emp.setEmail(empform.getEmail());
 		emp.setSalary(empform.getSalary());
 		emp.setPassword(passwordEncoder.encode(empform.getPassword()));
-        emp.setType(empform.getType());
+		emp.setType(empform.getType());
 		dao.addEmployee(emp);
 	}
-	
-	//get all employee
+
+	// get all employee
+	/**
+	 * <h2>getAllEmp</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @return
+	 */
 	@Override
-	public List<EmployeeDto> getAllEmp(){
-		List<Employee> allEmp=dao.getAllEmployee();
-		List<EmployeeDto> employee=new ArrayList<EmployeeDto>();
-		for(Employee emp:allEmp) {
-			EmployeeDto empDto=new EmployeeDto(emp);
+	public List<EmployeeDto> getAllEmp() {
+		List<Employee> allEmp = dao.getAllEmployee();
+		List<EmployeeDto> employee = new ArrayList<EmployeeDto>();
+		for (Employee emp : allEmp) {
+			EmployeeDto empDto = new EmployeeDto(emp);
 			empDto.setId(emp.getId());
 			empDto.setName(emp.getName());
 			empDto.setDepartment(emp.getDepartment());
@@ -53,31 +93,65 @@ public class EmployeeServicesImpl implements EmployeeServices {
 		}
 		return employee;
 	}
-	
-	//get employeee by id
+
+	// get employeee by id
+	/**
+	 * <h2>getById</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public Employee getById(int id) {
 		return dao.getEmpById(id);
 	}
-	
-	// update employee
-	@Override
-    public void updateEmp(Employee emp) {
-        dao.updateEmp(emp);
-    }
 
-    // delete employee
+	// update employee
+	/**
+	 * <h2>updateEmp</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param emp
+	 */
 	@Override
-    public void deleteEmployee(int id) {
-        dao.deleteEmp(id);
-    }
-	
+	public void updateEmp(Employee emp) {
+		dao.updateEmp(emp);
+	}
+
+	// delete employee
+	/**
+	 * <h2>deleteEmployee</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param id
+	 */
+	@Override
+	public void deleteEmployee(int id) {
+		dao.deleteEmp(id);
+	}
+
+	/**
+	 * <h2>findByEmail</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param email
+	 * @return
+	 */
 	public EmployeeDto findByEmail(String email) {
-		Employee emp=dao.findByEmail(email);
-		if(emp==null) {
+		Employee emp = dao.findByEmail(email);
+		if (emp == null) {
 			return null;
 		}
-		EmployeeDto empDto=new EmployeeDto(emp);
+		EmployeeDto empDto = new EmployeeDto(emp);
 		return empDto;
 	}
 }
