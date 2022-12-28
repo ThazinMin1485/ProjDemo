@@ -9,16 +9,16 @@
 </head>
 <body>
 	<h2>All Employee</h2>
-	<a href="addEmployee">Add Employee</a>
-	<table>
+	<a href="addEmployee" class="btn btn-secondary">Add Employee</a>
+	<br>
+	<br>
+	<table class="table table-hover table-striped">
 		<tr>
 			<th>ID</th>
 			<th>Name</th>
 			<th>Department</th>
 			<th>Email</th>
 			<th>Salary</th>
-			<th>Password</th>
-			<th>Type</th>
 			<th>Edit</th>
 			<th>Delete</th>
 		</tr>
@@ -29,10 +29,8 @@
 				<td>${emp.department}</td>
 				<td>${emp.email}</td>
 				<td>${emp.salary}</td>
-				<td>${emp.password }</td>
-				<td>${emp.type }</td>
-				<td><a href="editEmployee/${emp.id}">Edit</a></td>
-				<td><a href="deleteEmployee/${emp.id}">Delete</a></td>
+				<td><a href="editEmployee/${emp.id}" class="btn btn-outline-warning">Edit</a></td>
+				<td><a href="deleteEmployee/${emp.id}" class="btn btn-outline-danger">Delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>

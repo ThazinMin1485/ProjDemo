@@ -62,16 +62,16 @@
 				</div>
 				<div class="col">
 					<div class="form-group">
-						<label for="password">Password</label> <input type="text"
-							value="${employee.password }" class="form-control" id="password"
-							name="password" placeholder="Enter Password">
+						<input type="hidden"
+							value="${employee.password }" id="password"
+							name="password" >
 					</div>
 				</div>
 				<div class="col">
 					<div class="form-group">
-						<label for="type">Type</label> <input type="text"
-							value="${employee.type }" class="form-control" id="type"
-							name="type" placeholder="Enter Type">
+						<input type="hidden"
+							value="${employee.type }" id="type"
+							name="type" >
 					</div>
 				</div>
 			</div>
