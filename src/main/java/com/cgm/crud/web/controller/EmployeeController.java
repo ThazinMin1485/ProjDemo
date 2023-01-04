@@ -5,6 +5,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 //import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +30,7 @@ import com.cgm.crud.persistence.entity.Employee;
 import com.cgm.crud.web.form.CreateEmpForm;
 
 /**
- * <h2> EmployeeController Class</h2>
+ * <h2>EmployeeController Class</h2>
  * <p>
  * Process for Displaying EmployeeController
  * </p>
@@ -39,14 +42,14 @@ import com.cgm.crud.web.form.CreateEmpForm;
 public class EmployeeController {
 
 	/**
-	 * <h2> service</h2>
+	 * <h2>service</h2>
 	 * <p>
 	 * service
 	 * </p>
 	 */
 	@Autowired
-	EmployeeServices service;
-	
+	private EmployeeServices service;
+
 //	@Autowired
 //	@Qualifier("employeeValidator")
 //	private Validator validator;
@@ -57,7 +60,13 @@ public class EmployeeController {
 //	}
 
 	/**
-	 * <h2> showRegister</h2>
+	 * <h2>lcappEmailService</h2>
+	 * <p>
+	 * lcappEmailService
+	 * </p>
+	 */
+	/**
+	 * <h2>showRegister</h2>
 	 * <p>
 	 * 
 	 * </p>
@@ -73,7 +82,7 @@ public class EmployeeController {
 	}
 
 	/**
-	 * <h2> insertEmployee</h2>
+	 * <h2>insertEmployee</h2>
 	 * <p>
 	 * 
 	 * </p>
@@ -87,14 +96,13 @@ public class EmployeeController {
 	public String insertEmployee(@Valid @ModelAttribute("employee") CreateEmpForm emp, BindingResult result) {
 		if (result.hasErrors()) {
 			return "register";
-		}
-		else {
+		} else {
 			service.addEmp(emp);
 			return "redirect:/addEmployee";
 		}
-		
+
 	}
-	
+
 //	@RequestMapping(value= {"/insertEmployee"}, method=RequestMethod.POST)
 //	public String insertEmployee(@ModelAttribute("insertEmployee") @Validated CreateEmpForm employee,
 //			BindingResult bindingResult) {
@@ -104,81 +112,127 @@ public class EmployeeController {
 //		service.addEmp(employee);
 //		return "redirect:/addEmployee";
 //	}
-	
+
 	// lode employee data
-    /**
-     * <h2> lodeEmployee</h2>
-     * <p>
-     * 
-     * </p>
-     *
-     * @return
-     * @return ModelAndView
-     */
-    @GetMapping("employeeReport")
-    public ModelAndView lodeEmployee() {
-        ModelAndView report = new ModelAndView("employeeReport");
-        List<EmployeeDto> emp = service.getAllEmp();
-        report.addObject("employee", emp);
-        report.addObject("title", "Employee Report");
+	/**
+	 * <h2>lodeEmployee</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @return
+	 * @return ModelAndView
+	 */
+	@GetMapping("employeeReport")
+	public ModelAndView lodeEmployee() {
+		ModelAndView report = new ModelAndView("employeeReport");
+		List<EmployeeDto> emp = service.getAllEmp();
+		report.addObject("employee", emp);
+		report.addObject("title", "Employee Report");
 
-        return report;
-    }
-    
- // lode edit form
-    /**
-     * <h2> lodeEditForm</h2>
-     * <p>
-     * 
-     * </p>
-     *
-     * @param id
-     * @param m
-     * @return
-     * @return String
-     */
-    @GetMapping("/editEmployee/{id}")
-    public String lodeEditForm(@PathVariable(value = "id") int id, Model m) {
-        Employee emp = service.getById(id);
+		return report;
+	}
 
-        System.out.println(emp);
-        m.addAttribute("employee", emp);
-        m.addAttribute("title", "Edit Employee");
+	// lode edit form
+	/**
+	 * <h2>lodeEditForm</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param id
+	 * @param m
+	 * @return
+	 * @return String
+	 */
+	@GetMapping("/editEmployee/{id}")
+	public String lodeEditForm(@PathVariable(value = "id") int id, Model m) {
+		Employee emp = service.getById(id);
 
-        return "editEmployee";
-    }
-    
-    /**
-     * <h2> updateEmp</h2>
-     * <p>
-     * 
-     * </p>
-     *
-     * @param emp
-     * @return
-     * @return String
-     */
-    @PostMapping("/editEmployee/updateEmployee")
-    public String updateEmp(@ModelAttribute("updateEmployee") Employee emp) {
-        service.updateEmp(emp);
+		System.out.println(emp);
+		m.addAttribute("employee", emp);
+		m.addAttribute("title", "Edit Employee");
 
-        return "redirect:/employeeReport";
-    }
+		return "editEmployee";
+	}
 
-    /**
-     * <h2> deleteEmployee</h2>
-     * <p>
-     * 
-     * </p>
-     *
-     * @param id
-     * @return
-     * @return String
-     */
-    @GetMapping("/deleteEmployee/{id}")
-    public String deleteEmployee(@PathVariable int id) {
-        service.deleteEmployee(id);
+	/**
+	 * <h2>updateEmp</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param emp
+	 * @return
+	 * @return String
+	 */
+	@PostMapping("/editEmployee/updateEmployee")
+	public String updateEmp(@ModelAttribute("updateEmployee") Employee emp) {
+		service.updateEmp(emp);
 
-        return "redirect:/employeeReport";
-    }
+		return "redirect:/employeeReport";
+	}
+
+	/**
+	 * <h2>deleteEmployee</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param id
+	 * @return
+	 * @return String
+	 */
+	@GetMapping("/deleteEmployee/{id}")
+	public String deleteEmployee(@PathVariable int id) {
+		service.deleteEmployee(id);
+
+		return "redirect:/employeeReport";
+	}
+
+	/**
+	 * <h2>sendEmail</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param model
+	 * @return
+	 * @return String
+	 */
+	@RequestMapping(value = { "/sendEmail" }, method = RequestMethod.GET)
+	public String sendEmail(Model model) {
+		model.addAttribute("employee", new Employee());
+		return "forgetPassword";
+	}
+
+	@RequestMapping(value = { "/processEmail" }, method = RequestMethod.POST)
+	public String processEmail(@ModelAttribute("employee") CreateEmpForm emp) {
+		this.sendEmail(emp.getEmail());
+		return "redirect:/login";
+	}
+
+	@Autowired
+	private JavaMailSender javaMailSender;
+
+	@Autowired
+	private EmployeeServices empServices;
+
+	public void sendEmail(String userEmail) throws UsernameNotFoundException {
+		EmployeeDto emp = empServices.findByEmail(userEmail);
+		if (emp == null) {
+			throw new UsernameNotFoundException("Employee not found");
+		} else {
+			SimpleMailMessage newEmail = new SimpleMailMessage();
+			newEmail.setFrom("jensonarial@gmail.com");
+			newEmail.setTo(emp.getEmail());
+			newEmail.setSubject("Password Reset Link");
+			newEmail.setText("Hello," + "\n\n" + "You have requested to reset your password." + "\n\n"
+					+ "Click the link below to change your password:" + "\n\n"
+					+ "<a href='passwordProcess' />Change my password</a>" + "\n\n"
+					+ "Ignore this email if you do remember your password or you have not make the request");
+			javaMailSender.send(newEmail);
+		}
+
+	}
 }

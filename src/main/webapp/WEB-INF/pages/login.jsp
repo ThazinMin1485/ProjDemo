@@ -41,6 +41,9 @@ h3 {
 			<br />
 			<br />
 			<input type="submit" value="Login" class="btn btn-outline-primary" />
+			<br />
+			<br />
+			<a href="sendEmail">Forget Password?</a>
 		</form:form>
 	</div>
 </body>
