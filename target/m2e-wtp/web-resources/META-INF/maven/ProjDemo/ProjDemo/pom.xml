@@ -141,6 +141,7 @@
 			<version>3.0.5</version>
 		</dependency>
 
+
 		<!--Tiles-->
 		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-servlet -->
 		<dependency>
@@ -178,6 +179,24 @@
 			<version>5.0.0.RELEASE</version>
 		</dependency>
 
+		<!-- SLF4J API -->
+
+		<dependency>
+
+			<groupId>org.slf4j</groupId>
+
+			<artifactId>slf4j-api</artifactId>
+
+			<version>1.7.2</version>
+
+		</dependency>
+
+		<!-- LOG4J -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.26</version>
+		</dependency>
 
 	</dependencies>
 

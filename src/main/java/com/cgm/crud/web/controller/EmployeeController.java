@@ -5,9 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 //import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,6 +55,7 @@ public class EmployeeController {
 //	private void initBinder(WebDataBinder binder) {
 //		binder.setValidator(validator);
 //	}
+	
 
 	/**
 	 * <h2>lcappEmailService</h2>
@@ -190,49 +188,5 @@ public class EmployeeController {
 		return "redirect:/employeeReport";
 	}
 
-	/**
-	 * <h2>sendEmail</h2>
-	 * <p>
-	 * 
-	 * </p>
-	 *
-	 * @param model
-	 * @return
-	 * @return String
-	 */
-	@RequestMapping(value = { "/sendEmail" }, method = RequestMethod.GET)
-	public String sendEmail(Model model) {
-		model.addAttribute("employee", new Employee());
-		return "forgetPassword";
-	}
-
-	@RequestMapping(value = { "/processEmail" }, method = RequestMethod.POST)
-	public String processEmail(@ModelAttribute("employee") CreateEmpForm emp) {
-		this.sendEmail(emp.getEmail());
-		return "redirect:/login";
-	}
-
-	@Autowired
-	private JavaMailSender javaMailSender;
-
-	@Autowired
-	private EmployeeServices empServices;
-
-	public void sendEmail(String userEmail) throws UsernameNotFoundException {
-		EmployeeDto emp = empServices.findByEmail(userEmail);
-		if (emp == null) {
-			throw new UsernameNotFoundException("Employee not found");
-		} else {
-			SimpleMailMessage newEmail = new SimpleMailMessage();
-			newEmail.setFrom("jensonarial@gmail.com");
-			newEmail.setTo(emp.getEmail());
-			newEmail.setSubject("Password Reset Link");
-			newEmail.setText("Hello," + "\n\n" + "You have requested to reset your password." + "\n\n"
-					+ "Click the link below to change your password:" + "\n\n"
-					+ "<a href='passwordProcess' />Change my password</a>" + "\n\n"
-					+ "Ignore this email if you do remember your password or you have not make the request");
-			javaMailSender.send(newEmail);
-		}
-
-	}
+	
 }

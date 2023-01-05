@@ -84,6 +84,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.cgm.crud.persistence.entity.Employee</value>
+				<value>com.cgm.crud.persistence.entity.PasswordReset</value>
 			</list>
 		</property>
 
@@ -105,5 +106,12 @@
 
 	<bean id="bCryptPasswordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+	</bean>
+
+	<!-- MESSAGE SOURCE -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames" value="classpath:messages" />
+		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 </beans>
