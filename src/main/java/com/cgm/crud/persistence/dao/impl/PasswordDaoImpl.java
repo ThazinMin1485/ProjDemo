@@ -10,13 +10,37 @@ import org.springframework.stereotype.Repository;
 import com.cgm.crud.persistence.dao.PasswordDao;
 import com.cgm.crud.persistence.entity.PasswordReset;
 
+/**
+ * <h2> PasswordDaoImpl Class</h2>
+ * <p>
+ * Process for Displaying PasswordDaoImpl
+ * </p>
+ * 
+ * @author User
+ *
+ */
 @Repository
 @Transactional
 public class PasswordDaoImpl implements PasswordDao {
 
+	/**
+	 * <h2> sessionFactory</h2>
+	 * <p>
+	 * sessionFactory
+	 * </p>
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * <h2> getTokenDataByEmail </h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param email
+	 * @return
+	 */
 	@SuppressWarnings("rawtypes")
 	@Override
 	public PasswordReset getTokenDataByEmail(String email) {
@@ -27,6 +51,14 @@ public class PasswordDaoImpl implements PasswordDao {
 		return passwordReset;
 	}
 
+	/**
+	 * <h2> deleteToken </h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param email
+	 */
 	@SuppressWarnings("rawtypes")
 	@Override
 	public void deleteToken(String email) {
@@ -36,11 +68,28 @@ public class PasswordDaoImpl implements PasswordDao {
 		q.executeUpdate();
 	}
 
+	/**
+	 * <h2> createToken </h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param pwToken
+	 */
 	@Override
 	public void createToken(PasswordReset pwToken) {
 		sessionFactory.getCurrentSession().save(pwToken);
 	}
 
+	/**
+	 * <h2> dbGetDataByToken </h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param token
+	 * @return
+	 */
 	@SuppressWarnings("rawtypes")
 	@Override
 	public PasswordReset dbGetDataByToken(String token) {

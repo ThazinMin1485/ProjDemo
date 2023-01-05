@@ -35,6 +35,33 @@ import com.cgm.crud.web.form.ResetPasswordForm;
  * @author User
  *
  */
+/**
+ * <h2> PasswordController Class</h2>
+ * <p>
+ * Process for Displaying PasswordController
+ * </p>
+ * 
+ * @author User
+ *
+ */
+/**
+ * <h2> PasswordController Class</h2>
+ * <p>
+ * Process for Displaying PasswordController
+ * </p>
+ * 
+ * @author User
+ *
+ */
+/**
+ * <h2> PasswordController Class</h2>
+ * <p>
+ * Process for Displaying PasswordController
+ * </p>
+ * 
+ * @author User
+ *
+ */
 @Controller
 public class PasswordController {
 	/**
@@ -82,6 +109,18 @@ public class PasswordController {
 
 	//sending email
 	
+	/**
+	 * <h2> processEmail</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param resetForm
+	 * @param result
+	 * @param request
+	 * @return
+	 * @return ModelAndView
+	 */
 	@RequestMapping(value = { "/processEmail" }, method = RequestMethod.POST)
 	public ModelAndView processEmail(@Valid @ModelAttribute("resetForm") ResetForm resetForm,
 		BindingResult result,HttpServletRequest request) {
@@ -103,6 +142,16 @@ public class PasswordController {
 	}
 	
 		
+	/**
+	 * <h2> showResetPasswordForm</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param token
+	 * @return
+	 * @return ModelAndView
+	 */
 	@RequestMapping(value = "/processEmail/{token}", method = RequestMethod.GET)
     public ModelAndView showResetPasswordForm(@PathVariable String token) {
         ModelAndView mv = new ModelAndView("404");
@@ -128,6 +177,18 @@ public class PasswordController {
         return mv;
     }
 	
+	/**
+	 * <h2> resetPassword</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param resetForm
+	 * @param result
+	 * @param request
+	 * @return
+	 * @return ModelAndView
+	 */
 	@RequestMapping(value = { "/resetPassword" }, method = RequestMethod.POST)
     public ModelAndView resetPassword(@Valid @ModelAttribute("resetForm") ResetPasswordForm resetForm,
             BindingResult result, HttpServletRequest request) {
@@ -159,6 +220,17 @@ public class PasswordController {
     }
 
 
+	/**
+	 * <h2> sendEmail</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param url
+	 * @param resetForm
+	 * @throws UsernameNotFoundException
+	 * @return void
+	 */
 	public void sendEmail(String url,@Valid ResetForm resetForm) throws UsernameNotFoundException {
 		SimpleMailMessage newEmail = new SimpleMailMessage();
 		newEmail.setFrom("jensonarial@gmail.com");
@@ -170,6 +242,16 @@ public class PasswordController {
 		javaMailSender.send(newEmail);
 	}
 
+	/**
+	 * <h2> getBaseUrl</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param request
+	 * @return
+	 * @return String
+	 */
 	private String getBaseUrl(HttpServletRequest request) {
 		String url = request.getScheme() + "://" + request.getServerName();
 		if (request.getServerPort() != 0) {
@@ -179,6 +261,16 @@ public class PasswordController {
 		return url;
 	}
 
+	/**
+	 * <h2> isTokenExpired</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param expired_at
+	 * @return
+	 * @return boolean
+	 */
 	private boolean isTokenExpired(Timestamp expired_at) {
 		Timestamp now = new Timestamp(new Date().getTime());
 		return now.after(expired_at);

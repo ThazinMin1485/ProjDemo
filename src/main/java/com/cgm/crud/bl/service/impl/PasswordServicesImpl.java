@@ -18,21 +18,63 @@ import com.cgm.crud.persistence.entity.Employee;
 import com.cgm.crud.persistence.entity.PasswordReset;
 import com.cgm.crud.web.form.ResetForm;
 
+/**
+ * <h2> PasswordServicesImpl Class</h2>
+ * <p>
+ * Process for Displaying PasswordServicesImpl
+ * </p>
+ * 
+ * @author User
+ *
+ */
 @Transactional
 @Service
 public class PasswordServicesImpl implements PasswordServices{
 
+	/**
+	 * <h2> now</h2>
+	 * <p>
+	 * now
+	 * </p>
+	 */
 	private Timestamp now=new Timestamp(new Date(System.currentTimeMillis()).getTime());
 
+	/**
+	 * <h2> pwDao</h2>
+	 * <p>
+	 * pwDao
+	 * </p>
+	 */
 	@Autowired
 	private PasswordDao pwDao;
 	
+	/**
+	 * <h2> empDao</h2>
+	 * <p>
+	 * empDao
+	 * </p>
+	 */
 	@Autowired
 	private EmployeeDao empDao;
 	
+	/**
+	 * <h2> pwEncoder</h2>
+	 * <p>
+	 * pwEncoder
+	 * </p>
+	 */
 	@Autowired
 	private PasswordEncoder pwEncoder;
 	
+	/**
+	 * <h2> createResetToken </h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param email
+	 * @return
+	 */
 	@Override
 	public ResetForm createResetToken(String email) {
 		PasswordReset pwToken= pwDao.getTokenDataByEmail(email);
@@ -62,6 +104,15 @@ public class PasswordServicesImpl implements PasswordServices{
 		
 	}
 	
+	/**
+	 * <h2> getDataByToken </h2>
+	 * <p>
+	 * 
+	 * </p>
+	 * 
+	 * @param token
+	 * @return
+	 */
 	@Override
     public ResetForm getDataByToken(String token) {
         PasswordReset pw = pwDao.dbGetDataByToken(token);
@@ -73,10 +124,26 @@ public class PasswordServicesImpl implements PasswordServices{
         return reset;
     }
 
+    /**
+     * <h2> deleteToken </h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @param email
+     */
     public void deleteToken(String email) {
         pwDao.deleteToken(email);
     }
 
+    /**
+     * <h2> updatePassword </h2>
+     * <p>
+     * 
+     * </p>
+     * 
+     * @param resetForm
+     */
     @Override
     public void updatePassword(ResetForm resetForm) {
         resetForm.setPassword(pwEncoder.encode(resetForm.getPassword()));
@@ -90,6 +157,16 @@ public class PasswordServicesImpl implements PasswordServices{
     }
 
 	
+	/**
+	 * <h2> getPasswordToken</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param resetForm
+	 * @return
+	 * @return PasswordReset
+	 */
 	private PasswordReset getPasswordToken(ResetForm resetForm) {
         PasswordReset pwToken = new PasswordReset();
         pwToken.setEmail(resetForm.getEmail());

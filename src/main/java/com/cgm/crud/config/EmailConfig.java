@@ -7,9 +7,27 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+/**
+ * <h2> EmailConfig Class</h2>
+ * <p>
+ * Process for Displaying EmailConfig
+ * </p>
+ * 
+ * @author User
+ *
+ */
 @Configuration
 public class EmailConfig {
 
+	/**
+	 * <h2> getJavaMailSender</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @return
+	 * @return JavaMailSender
+	 */
 	@Bean
 	public JavaMailSender getJavaMailSender() {
 		JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
