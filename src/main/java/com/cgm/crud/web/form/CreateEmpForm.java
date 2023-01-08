@@ -8,9 +8,10 @@ import com.cgm.crud.persistence.entity.Employee;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * <h2> CreateEmpForm Class</h2>
+ * <h2>CreateEmpForm Class</h2>
  * <p>
  * Process for Displaying CreateEmpForm
  * </p>
@@ -18,164 +19,9 @@ import lombok.Data;
  * @author User
  *
  */
-/**
- * <h2> getName</h2>
- * <p>
- * 
- * </p>
- *
- * @return
- * @return String
- */
-/**
- * <h2> getDepartment</h2>
- * <p>
- * 
- * </p>
- *
- * @return
- * @return String
- */
-/**
- * <h2> getEmail</h2>
- * <p>
- * 
- * </p>
- *
- * @return
- * @return String
- */
-/**
- * <h2> getSalary</h2>
- * <p>
- * 
- * </p>
- *
- * @return
- * @return int
- */
-/**
- * <h2> getPassword</h2>
- * <p>
- * 
- * </p>
- *
- * @return
- * @return String
- */
-/**
- * <h2> getType</h2>
- * <p>
- * 
- * </p>
- *
- * @return
- * @return String
- */
-/**
- * <h2> setName</h2>
- * <p>
- * 
- * </p>
- *
- * @param name
- * @return void
- */
-/**
- * <h2> setDepartment</h2>
- * <p>
- * 
- * </p>
- *
- * @param department
- * @return void
- */
-/**
- * <h2> setEmail</h2>
- * <p>
- * 
- * </p>
- *
- * @param email
- * @return void
- */
-/**
- * <h2> setSalary</h2>
- * <p>
- * 
- * </p>
- *
- * @param salary
- * @return void
- */
-/**
- * <h2> setPassword</h2>
- * <p>
- * 
- * </p>
- *
- * @param password
- * @return void
- */
-/**
- * <h2> setType</h2>
- * <p>
- * 
- * </p>
- *
- * @param type
- * @return void
- */
-/**
- * <h2> equals </h2>
- * <p>
- * 
- * </p>
- * 
- * @param o
- * @return
- */
-/**
- * <h2> canEqual</h2>
- * <p>
- * 
- * </p>
- *
- * @param other
- * @return
- * @return boolean
- */
-/**
- * <h2> hashCode </h2>
- * <p>
- * 
- * </p>
- * 
- * @return
- */
-/**
- * <h2>toString</h2>
- * <p>
- * 
- * </p>
- * 
- * @return
- */
 @Data
-/**
- * <h2>Constructor for CreateEmpForm</h2>
- * <p>
- * Constructor for CreateEmpForm
- * </p>
- * 
- * @param name
- * @param department
- * @param email
- * @param salary
- * @param password
- * @param type
- */
 @AllArgsConstructor
+@NoArgsConstructor
 public class CreateEmpForm {
 	/**
 	 * <h2>name</h2>
@@ -230,16 +76,6 @@ public class CreateEmpForm {
 	 * </p>
 	 */
 	private String type;
-
-	/**
-	 * <h2>Constructor for CreateEmpForm</h2>
-	 * <p>
-	 * Constructor for CreateEmpForm
-	 * </p>
-	 */
-	public CreateEmpForm() {
-		super();
-	}
 
 	/**
 	 * <h2>Constructor for CreateEmpForm</h2>

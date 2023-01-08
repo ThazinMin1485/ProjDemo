@@ -1,6 +1,9 @@
 package com.cgm.crud.bl.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cgm.crud.bl.dto.EmployeeDto;
 import com.cgm.crud.persistence.entity.Employee;
@@ -17,7 +20,6 @@ import com.cgm.crud.web.form.CreateEmpForm;
  */
 public interface EmployeeServices {
 
-	// add employee
 	/**
 	 * <h2>addEmp</h2>
 	 * <p>
@@ -29,7 +31,6 @@ public interface EmployeeServices {
 	 */
 	public void addEmp(CreateEmpForm empform);
 
-	// get all employee
 	/**
 	 * <h2>getAllEmp</h2>
 	 * <p>
@@ -41,7 +42,6 @@ public interface EmployeeServices {
 	 */
 	public List<EmployeeDto> getAllEmp();
 
-	// get employeee by id
 	/**
 	 * <h2>getById</h2>
 	 * <p>
@@ -54,7 +54,6 @@ public interface EmployeeServices {
 	 */
 	public Employee getById(int id);
 
-	// update employee
 	/**
 	 * <h2>updateEmp</h2>
 	 * <p>
@@ -66,7 +65,6 @@ public interface EmployeeServices {
 	 */
 	public void updateEmp(Employee emp);
 
-	// delete employee
 	/**
 	 * <h2>deleteEmployee</h2>
 	 * <p>
@@ -78,7 +76,6 @@ public interface EmployeeServices {
 	 */
 	public void deleteEmployee(int id);
 
-	// get employee by email
 	/**
 	 * <h2>findByEmail</h2>
 	 * <p>
@@ -90,4 +87,17 @@ public interface EmployeeServices {
 	 * @return EmployeeDto
 	 */
 	public EmployeeDto findByEmail(String email);
+
+	/**
+	 * <h2> doImportEmp</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 * @return String
+	 */
+	public String doImportEmp(MultipartFile file) throws IOException;
 }

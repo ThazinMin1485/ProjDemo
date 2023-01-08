@@ -1,5 +1,6 @@
 package com.cgm.crud.web.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,7 +20,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cgm.crud.bl.dto.EmployeeDto;
 import com.cgm.crud.bl.service.EmployeeServices;
@@ -46,16 +50,6 @@ public class EmployeeController {
 	 */
 	@Autowired
 	private EmployeeServices service;
-
-//	@Autowired
-//	@Qualifier("employeeValidator")
-//	private Validator validator;
-//	
-//	@InitBinder
-//	private void initBinder(WebDataBinder binder) {
-//		binder.setValidator(validator);
-//	}
-	
 
 	/**
 	 * <h2>lcappEmailService</h2>
@@ -101,17 +95,6 @@ public class EmployeeController {
 
 	}
 
-//	@RequestMapping(value= {"/insertEmployee"}, method=RequestMethod.POST)
-//	public String insertEmployee(@ModelAttribute("insertEmployee") @Validated CreateEmpForm employee,
-//			BindingResult bindingResult) {
-//		if(bindingResult.hasErrors()) {
-//			return "register";
-//		}
-//		service.addEmp(employee);
-//		return "redirect:/addEmployee";
-//	}
-
-	// lode employee data
 	/**
 	 * <h2>lodeEmployee</h2>
 	 * <p>
@@ -131,7 +114,6 @@ public class EmployeeController {
 		return report;
 	}
 
-	// lode edit form
 	/**
 	 * <h2>lodeEditForm</h2>
 	 * <p>
@@ -188,5 +170,27 @@ public class EmployeeController {
 		return "redirect:/employeeReport";
 	}
 
-	
+	/**
+	 * <h2>downloadExcel</h2>
+	 * <p>
+	 * 
+	 * </p>
+	 *
+	 * @return
+	 * @return ModelAndView
+	 */
+	@RequestMapping(value = { "/exportEmployee" }, method = RequestMethod.GET)
+	public ModelAndView downloadExcel() {
+		List<EmployeeDto> empList = service.getAllEmp();
+		return new ModelAndView("excelView", "empList", empList);
+	}
+
+    @RequestMapping(value = "/importEmployee", method = RequestMethod.POST)
+	public String uploadExcel(@RequestParam("file") MultipartFile file, RedirectAttributes redirect) throws IOException {
+
+		String message=service.doImportEmp(file);
+		redirect.addFlashAttribute("message", message);
+		return "redirect:/employeeReport";
+	}
+
 }

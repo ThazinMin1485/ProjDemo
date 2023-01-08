@@ -27,34 +27,7 @@ import com.cgm.crud.web.form.ResetForm;
 import com.cgm.crud.web.form.ResetPasswordForm;
 
 /**
- * <h2> PasswordController Class</h2>
- * <p>
- * Process for Displaying PasswordController
- * </p>
- * 
- * @author User
- *
- */
-/**
- * <h2> PasswordController Class</h2>
- * <p>
- * Process for Displaying PasswordController
- * </p>
- * 
- * @author User
- *
- */
-/**
- * <h2> PasswordController Class</h2>
- * <p>
- * Process for Displaying PasswordController
- * </p>
- * 
- * @author User
- *
- */
-/**
- * <h2> PasswordController Class</h2>
+ * <h2>PasswordController Class</h2>
  * <p>
  * Process for Displaying PasswordController
  * </p>
@@ -98,19 +71,15 @@ public class PasswordController {
 	 * @return
 	 * @return String
 	 */
-	
-	//forgotpassword page
-	
+
 	@RequestMapping(value = { "/sendEmail" }, method = RequestMethod.GET)
 	public String sendEmail(Model model) {
 		model.addAttribute("resetForm", new ResetForm());
 		return "forgetPassword";
 	}
 
-	//sending email
-	
 	/**
-	 * <h2> processEmail</h2>
+	 * <h2>processEmail</h2>
 	 * <p>
 	 * 
 	 * </p>
@@ -122,28 +91,27 @@ public class PasswordController {
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value = { "/processEmail" }, method = RequestMethod.POST)
-	public ModelAndView processEmail(@Valid @ModelAttribute("resetForm") ResetForm resetForm,
-		BindingResult result,HttpServletRequest request) {
-		ModelAndView mv=new ModelAndView("forgetPassword");
-		if(result.hasErrors()) {
+	public ModelAndView processEmail(@Valid @ModelAttribute("resetForm") ResetForm resetForm, BindingResult result,
+			HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("forgetPassword");
+		if (result.hasErrors()) {
 			return mv;
 		}
-		EmployeeDto empDto=service.findByEmail(resetForm.getEmail());
+		EmployeeDto empDto = service.findByEmail(resetForm.getEmail());
 		if (empDto == null) {
-            mv.addObject("errorMsg", msg.getMessage("M_SC_USR_0003", null, null));
-            return mv;
-        }
+			mv.addObject("errorMsg", msg.getMessage("M_SC_USR_0003", null, null));
+			return mv;
+		}
 
-		resetForm=pwService.createResetToken(resetForm.getEmail());
+		resetForm = pwService.createResetToken(resetForm.getEmail());
 		String url = getBaseUrl(request) + request.getServletPath() + '/' + resetForm.getToken();
-		this.sendEmail(url,resetForm);
+		this.sendEmail(url, resetForm);
 		mv.setViewName("redirect:/");
 		return mv;
 	}
-	
-		
+
 	/**
-	 * <h2> showResetPasswordForm</h2>
+	 * <h2>showResetPasswordForm</h2>
 	 * <p>
 	 * 
 	 * </p>
@@ -153,32 +121,32 @@ public class PasswordController {
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "/processEmail/{token}", method = RequestMethod.GET)
-    public ModelAndView showResetPasswordForm(@PathVariable String token) {
-        ModelAndView mv = new ModelAndView("404");
+	public ModelAndView showResetPasswordForm(@PathVariable String token) {
+		ModelAndView mv = new ModelAndView("404");
 
-        ResetForm resetForm = pwService.getDataByToken(token);
+		ResetForm resetForm = pwService.getDataByToken(token);
 
-        if (resetForm == null) {
-            mv.addObject("errorMsg", msg.getMessage("M_SC_USR_0005", null, null));
-            return mv;
-        }
+		if (resetForm == null) {
+			mv.addObject("errorMsg", msg.getMessage("M_SC_USR_0005", null, null));
+			return mv;
+		}
 
-        if (isTokenExpired(resetForm.getExpired_at())) {
-            mv.addObject("errorMsg", msg.getMessage("M_SC_USR_0005", null, null));
-            return mv;
-        }
+		if (isTokenExpired(resetForm.getExpired_at())) {
+			mv.addObject("errorMsg", msg.getMessage("M_SC_USR_0005", null, null));
+			return mv;
+		}
 
-        ResetPasswordForm newResetForm = new ResetPasswordForm();
-        newResetForm.setToken(token);
+		ResetPasswordForm newResetForm = new ResetPasswordForm();
+		newResetForm.setToken(token);
 
-        mv.setViewName("resetForm");
-        mv.addObject("resetForm", newResetForm);
+		mv.setViewName("resetForm");
+		mv.addObject("resetForm", newResetForm);
 
-        return mv;
-    }
-	
+		return mv;
+	}
+
 	/**
-	 * <h2> resetPassword</h2>
+	 * <h2>resetPassword</h2>
 	 * <p>
 	 * 
 	 * </p>
@@ -190,38 +158,37 @@ public class PasswordController {
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value = { "/resetPassword" }, method = RequestMethod.POST)
-    public ModelAndView resetPassword(@Valid @ModelAttribute("resetForm") ResetPasswordForm resetForm,
-            BindingResult result, HttpServletRequest request) {
+	public ModelAndView resetPassword(@Valid @ModelAttribute("resetForm") ResetPasswordForm resetForm,
+			BindingResult result, HttpServletRequest request) {
 
-        ModelAndView mv = new ModelAndView("resetForm");
-        if (result.hasErrors()) {
-            return mv;
-        }
+		ModelAndView mv = new ModelAndView("resetForm");
+		if (result.hasErrors()) {
+			return mv;
+		}
 
-        if (!resetForm.getPassword().equals(resetForm.getConfirm_password())) {
-            mv.addObject("errorMsg", msg.getMessage("M_SC_USR_0007", null, null));
-            return mv;
-        }
+		if (!resetForm.getPassword().equals(resetForm.getConfirm_password())) {
+			mv.addObject("errorMsg", msg.getMessage("M_SC_USR_0007", null, null));
+			return mv;
+		}
 
-        String email = pwService.getDataByToken(resetForm.getToken()).getEmail();
+		String email = pwService.getDataByToken(resetForm.getToken()).getEmail();
 
-        ResetForm newResetForm = new ResetForm();
-        newResetForm.setEmail(email);
-        newResetForm.setPassword(resetForm.getPassword());
+		ResetForm newResetForm = new ResetForm();
+		newResetForm.setEmail(email);
+		newResetForm.setPassword(resetForm.getPassword());
 
-        pwService.updatePassword(newResetForm);
+		pwService.updatePassword(newResetForm);
 
-        pwService.deleteToken(email);
+		pwService.deleteToken(email);
 
-        mv.setViewName("redirect:/login");
-        mv.addObject("msg", msg.getMessage("M_SC_USR_0004", null, null));
+		mv.setViewName("redirect:/login");
+		mv.addObject("msg", msg.getMessage("M_SC_USR_0004", null, null));
 
-        return mv;
-    }
-
+		return mv;
+	}
 
 	/**
-	 * <h2> sendEmail</h2>
+	 * <h2>sendEmail</h2>
 	 * <p>
 	 * 
 	 * </p>
@@ -231,7 +198,7 @@ public class PasswordController {
 	 * @throws UsernameNotFoundException
 	 * @return void
 	 */
-	public void sendEmail(String url,@Valid ResetForm resetForm) throws UsernameNotFoundException {
+	public void sendEmail(String url, @Valid ResetForm resetForm) throws UsernameNotFoundException {
 		SimpleMailMessage newEmail = new SimpleMailMessage();
 		newEmail.setFrom("jensonarial@gmail.com");
 		newEmail.setTo(resetForm.getEmail());
@@ -243,7 +210,7 @@ public class PasswordController {
 	}
 
 	/**
-	 * <h2> getBaseUrl</h2>
+	 * <h2>getBaseUrl</h2>
 	 * <p>
 	 * 
 	 * </p>
@@ -262,7 +229,7 @@ public class PasswordController {
 	}
 
 	/**
-	 * <h2> isTokenExpired</h2>
+	 * <h2>isTokenExpired</h2>
 	 * <p>
 	 * 
 	 * </p>

@@ -1,12 +1,19 @@
 package com.cgm.crud.bl.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cgm.crud.bl.dto.EmployeeDto;
 import com.cgm.crud.bl.service.EmployeeServices;
@@ -26,7 +33,6 @@ import com.cgm.crud.web.form.CreateEmpForm;
 @Transactional
 @Service
 public class EmployeeServicesImpl implements EmployeeServices {
-	// declare EmployeeDao class
 	/**
 	 * <h2>dao</h2>
 	 * <p>
@@ -36,7 +42,6 @@ public class EmployeeServicesImpl implements EmployeeServices {
 	@Autowired
 	private EmployeeDao dao;
 
-	// use encoder to encode password
 	/**
 	 * <h2>passwordEncoder</h2>
 	 * <p>
@@ -46,7 +51,9 @@ public class EmployeeServicesImpl implements EmployeeServices {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-	// add employee
+	@Autowired
+	private MessageSource messageSource;
+
 	/**
 	 * <h2>addEmp</h2>
 	 * <p>
@@ -67,7 +74,6 @@ public class EmployeeServicesImpl implements EmployeeServices {
 		dao.addEmployee(emp);
 	}
 
-	// get all employee
 	/**
 	 * <h2>getAllEmp</h2>
 	 * <p>
@@ -94,7 +100,6 @@ public class EmployeeServicesImpl implements EmployeeServices {
 		return employee;
 	}
 
-	// get employeee by id
 	/**
 	 * <h2>getById</h2>
 	 * <p>
@@ -109,7 +114,6 @@ public class EmployeeServicesImpl implements EmployeeServices {
 		return dao.getEmpById(id);
 	}
 
-	// update employee
 	/**
 	 * <h2>updateEmp</h2>
 	 * <p>
@@ -123,7 +127,6 @@ public class EmployeeServicesImpl implements EmployeeServices {
 		dao.updateEmp(emp);
 	}
 
-	// delete employee
 	/**
 	 * <h2>deleteEmployee</h2>
 	 * <p>
@@ -153,5 +156,31 @@ public class EmployeeServicesImpl implements EmployeeServices {
 		}
 		EmployeeDto empDto = new EmployeeDto(emp);
 		return empDto;
+	}
+
+	@SuppressWarnings("resource")
+	@Override
+	@Transactional
+	public String doImportEmp(MultipartFile file) throws IOException {
+		XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getLastRowNum(); i++) {
+			Employee emp = new Employee();
+			Row row = sheet.getRow(i);
+			Cell cellId = row.getCell(0);
+			emp.setId((int) cellId.getNumericCellValue());
+			Cell cellName = row.getCell(1);
+			emp.setName(cellName.getStringCellValue());
+			Cell cellDepartment = row.getCell(2);
+			emp.setDepartment(cellDepartment.getStringCellValue());
+			Cell cellEmail = row.getCell(3);
+			emp.setEmail(cellEmail.getStringCellValue());
+			Cell cellSalary = row.getCell(4);
+			emp.setSalary((int) cellSalary.getNumericCellValue());
+			emp.setPassword(passwordEncoder.encode("password"));
+			emp.setType("0");
+			dao.addEmployee(emp);
+		}
+		return messageSource.getMessage("M_SC_USR_0008", null, null);
 	}
 }

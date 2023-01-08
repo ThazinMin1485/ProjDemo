@@ -43,6 +43,10 @@
 			</list>
 		</property>
 	</bean>
+	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="order" value="1" />
+		<property name="location" value="/WEB-INF/excel-view.xml" />
+	</bean>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="order" value="1" />
@@ -113,5 +117,11 @@
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames" value="classpath:messages" />
 		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+	<!-- File Upload Configuration Bean Details -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1000000000" />
 	</bean>
 </beans>

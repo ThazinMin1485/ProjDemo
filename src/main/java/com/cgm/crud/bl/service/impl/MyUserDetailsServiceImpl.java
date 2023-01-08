@@ -1,4 +1,4 @@
-package com.cgm.crud.bl.service;
+package com.cgm.crud.bl.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.cgm.crud.bl.dto.EmployeeDto;
+import com.cgm.crud.bl.service.EmployeeServices;
 
 /**
  * <h2>MyUserDetailsService Class</h2>
@@ -24,7 +25,7 @@ import com.cgm.crud.bl.dto.EmployeeDto;
  *
  */
 @Service("myUserDetailsService")
-public class MyUserDetailsService implements UserDetailsService {
+public class MyUserDetailsServiceImpl implements UserDetailsService {
 
 	/**
 	 * <h2>employeeService</h2>
